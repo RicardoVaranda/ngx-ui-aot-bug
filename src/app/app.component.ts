@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { TemplateRef } from '@angular/core';
+import { DrawerService } from '@swimlane/ngx-ui';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  @ViewChild('editTmpl') editTmpl: TemplateRef<any>;
+  constructor(private drawerMngr: DrawerService) { }
+  openDrawer(direction = 'left', size = 80) {
+    this.drawerMngr.create({
+      direction,
+      template: this.editTmpl,
+      size,
+      context: 'Alert Everyone!'
+    });
+  }
 }
